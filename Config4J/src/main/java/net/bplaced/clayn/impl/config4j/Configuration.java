@@ -27,6 +27,8 @@ public interface Configuration {
 
     void set(String key, String val);
 
+    Set<String> getConfigurations();
+
     Set<String> getProfiles();
 
     Configuration getProfile(String profile);

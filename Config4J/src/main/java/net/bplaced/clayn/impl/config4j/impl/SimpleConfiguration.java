@@ -28,6 +28,11 @@ public class SimpleConfiguration implements Configuration {
         properties.setProperty(key, val);
     }
 
+    @Override
+    public Set<String> getConfigurations() {
+        return properties.stringPropertyNames();
+    }
+
     private String extractProfileName(String str) {
         int profNameEnd = str.indexOf(".");
         return str.substring(1, profNameEnd);
