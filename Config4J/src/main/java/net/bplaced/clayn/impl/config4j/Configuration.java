@@ -1,8 +1,13 @@
 package net.bplaced.clayn.impl.config4j;
 
+import net.bplaced.clayn.impl.config4j.event.ConfigurationListener;
+
 import java.util.Set;
 
 public interface Configuration {
+
+    void addListener(ConfigurationListener listener);
+    void removeListener(ConfigurationListener listener);
     default String get(String key) {
         return get(key, null);
     }
