@@ -1,6 +1,4 @@
-package net.bplaced.clayn.impl.config4j.event;
-
-import net.bplaced.clayn.impl.config4j.Key;
+package net.bplaced.clayn.config4j.event;
 
 import java.util.Objects;
 

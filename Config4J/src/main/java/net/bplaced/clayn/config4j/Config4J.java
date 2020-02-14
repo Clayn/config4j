@@ -1,19 +1,40 @@
-package net.bplaced.clayn.impl.config4j;
+package net.bplaced.clayn.config4j;
 
 
-import net.bplaced.clayn.impl.config4j.impl.SimpleConfiguration;
+import net.bplaced.clayn.impl.SimpleConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * Main class of the config4j project to provide application wide access to the configuration.
+ * If your use case requires a more protected access you don't have to use this class at all.
+ */
 public final class Config4J {
-    private static final Logger LOG= LoggerFactory.getLogger(Config4J.class);
-    private static ConfigurationProvider provider=null;
-    private static final Configuration DUMMY_CONFIGURATION=new SimpleConfiguration();
+    private static final Logger LOG = LoggerFactory.getLogger(Config4J.class);
+    private static ConfigurationProvider provider = null;
+    private static final Configuration DUMMY_CONFIGURATION = new SimpleConfiguration();
 
     private Config4J() {
 
+    }
+
+    public static void importDefaultConfiguration(Configuration def) {
+        if (provider == null) {
+            return;
+        }
+        Configuration used = getConfiguration();
+        merge(used, def);
+        saveConfiguration();
+    }
+
+    private static void merge(Configuration base, Configuration imp) {
+        for (String key : imp.getConfigurations()) {
+            if (!base.getConfigurations().contains(key)) {
+                base.set(key, imp.get(key));
+            }
+        }
     }
 
     public static void setProvider(ConfigurationProvider provider) {
@@ -22,6 +43,7 @@ public final class Config4J {
 
     /**
      * Returns the configuration from the given provider.
+     *
      * @return the registered providers configuration
      */
     public static Configuration getConfiguration() {

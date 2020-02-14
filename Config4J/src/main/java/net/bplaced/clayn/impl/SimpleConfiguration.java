@@ -1,13 +1,11 @@
-package net.bplaced.clayn.impl.config4j.impl;
+package net.bplaced.clayn.impl;
 
-import net.bplaced.clayn.impl.config4j.Configuration;
-import net.bplaced.clayn.impl.config4j.ConfigurationBase;
-import net.bplaced.clayn.impl.config4j.event.ConfigurationChangeEvent;
+import net.bplaced.clayn.config4j.ConfigurationBase;
+import net.bplaced.clayn.config4j.event.ConfigurationChangeEvent;
 
 import java.io.OutputStream;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Configuration implementation that stores the values in a simple properties file.
@@ -55,33 +53,9 @@ public class SimpleConfiguration extends ConfigurationBase {
 
     private String extractProfileName(String str) {
         int profNameEnd = str.indexOf(".");
-        return str.substring(1, profNameEnd);
-    }
-
-    @Override
-    public Set<String> getProfiles() {
-        return properties.stringPropertyNames()
-                .stream()
-                .filter((str) -> str.startsWith("*"))
-                .map(this::extractProfileName)
-                .distinct()
-                .collect(Collectors.toSet());
-    }
-
-    @Override
-    public Configuration getProfile(String profile) {
-        if (!getProfiles().contains(profile)) {
-            throw new IllegalArgumentException("No profile with name '" + profile + "' found");
+        if (profNameEnd < 0) {
+            profNameEnd = str.length();
         }
-        Properties profProp = new Properties();
-        String keyStart = "*" + profile;
-        properties.stringPropertyNames()
-                .stream()
-                .filter((str) -> str.startsWith(keyStart))
-                .forEach((str) -> {
-                    String newKey = str.substring(str.indexOf(keyStart) + keyStart.length() + 1);
-                    profProp.setProperty(newKey, properties.getProperty(str));
-                });
-        return new SimpleConfiguration(profProp);
+        return str.substring(1, profNameEnd);
     }
 }

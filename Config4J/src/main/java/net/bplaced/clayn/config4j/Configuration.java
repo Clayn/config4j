@@ -1,7 +1,8 @@
-package net.bplaced.clayn.impl.config4j;
+package net.bplaced.clayn.config4j;
 
-import net.bplaced.clayn.impl.config4j.event.ConfigurationListener;
+import net.bplaced.clayn.config4j.event.ConfigurationListener;
 
+import java.util.Objects;
 import java.util.Set;
 
 public interface Configuration {
@@ -34,7 +35,8 @@ public interface Configuration {
 
     Set<String> getConfigurations();
 
-    Set<String> getProfiles();
 
-    Configuration getProfile(String profile);
+    default void merge(Configuration other) {
+        Objects.requireNonNull(other);
+    }
 }

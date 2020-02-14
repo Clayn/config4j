@@ -1,8 +1,8 @@
-package net.bplaced.clayn.impl.config4j.impl.io;
+package net.bplaced.clayn.impl.io;
 
-import net.bplaced.clayn.impl.config4j.Configuration;
-import net.bplaced.clayn.impl.config4j.impl.SimpleConfiguration;
-import net.bplaced.clayn.impl.config4j.io.ConfigurationReader;
+import net.bplaced.clayn.config4j.Configuration;
+import net.bplaced.clayn.config4j.io.ConfigurationReader;
+import net.bplaced.clayn.impl.SimpleConfiguration;
 
 import java.io.IOException;
 import java.io.InputStream;

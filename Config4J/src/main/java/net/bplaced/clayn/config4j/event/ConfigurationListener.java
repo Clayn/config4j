@@ -1,4 +1,4 @@
-package net.bplaced.clayn.impl.config4j.event;
+package net.bplaced.clayn.config4j.event;
 
 public interface ConfigurationListener {
     void configurationChanged(ConfigurationChangeEvent evt);

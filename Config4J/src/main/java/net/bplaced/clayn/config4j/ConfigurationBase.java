@@ -1,6 +1,6 @@
-package net.bplaced.clayn.impl.config4j;
+package net.bplaced.clayn.config4j;
 
-import net.bplaced.clayn.impl.config4j.event.ConfigurationListener;
+import net.bplaced.clayn.config4j.event.ConfigurationListener;
 
 import java.util.ArrayList;
 import java.util.List;
