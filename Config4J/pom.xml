@@ -6,6 +6,13 @@
     <groupId>de.clayntech</groupId>
     <artifactId>config4j</artifactId>
     <version>0.1-SNAPSHOT</version>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Clayn</name>
+            <url>https://maven.pkg.github.com/Clayn/config4j</url>
+        </repository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
