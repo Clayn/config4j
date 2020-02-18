@@ -16,4 +16,4 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file Config4J/pom.xml
     - name: Deploy package
-      run: mvn -B deploy -Dregistry=https://maven.pkg.github.com/Clayn -Dtoken=GH_TOKEN --file Config4J/pom.xml
+      run: mvn -B deploy -Dregistry=https://maven.pkg.github.com/Clayn -Dtoken=${{ secrets.GITHUB_TOKEN }} --file Config4J/pom.xml
