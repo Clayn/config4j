@@ -17,8 +17,7 @@ jobs:
       run: mvn -B package --file Config4J/pom.xml
     - name: Deploy package
       env:
+        GITHUB_USERNAME: x-access-token
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        mkdir ~/.m2
-        echo "<settings><servers><server><id>github</id><username>Clayn</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
-        mvn deploy
+        run:
+          mvn --settings settings.xml deploy
