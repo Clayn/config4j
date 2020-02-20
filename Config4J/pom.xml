@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.clayntech</groupId>
     <artifactId>config4j</artifactId>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
     <distributionManagement>
         <repository>
             <id>github</id>
@@ -38,6 +38,13 @@
 
     </build>
     <dependencies>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

@@ -60,6 +60,4 @@ public interface ProfiledConfiguration extends Configuration {
      * @return the new created profile or an existing one with the same name
      */
     ProfiledConfiguration createProfile(String profile);
-
-
 }

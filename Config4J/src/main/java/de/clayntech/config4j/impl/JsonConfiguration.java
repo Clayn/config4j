@@ -2,6 +2,7 @@ package de.clayntech.config4j.impl;
 
 import de.clayntech.config4j.ConfigurationBase;
 import de.clayntech.config4j.ProfiledConfiguration;
+import de.clayntech.config4j.event.ConfigurationChangeEvent;
 
 import java.util.*;
 
@@ -60,7 +61,18 @@ public class JsonConfiguration extends ConfigurationBase implements ProfiledConf
 
     @Override
     public void set(String key, String val) {
+        Objects.requireNonNull(val);
+        Objects.requireNonNull(key);
+        String old = properties.getProperty(key);
         properties.setProperty(key, val);
+        boolean fire = false;
+        if (!val.equals(old)) {
+            fire = true;
+        }
+        if (fire) {
+            ConfigurationChangeEvent evt = new ConfigurationChangeEvent(key, old, val);
+            getListeners().stream().forEach((lis) -> lis.configurationChanged(evt));
+        }
     }
 
     @Override

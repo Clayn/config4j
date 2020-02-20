@@ -4,6 +4,7 @@ import de.clayntech.config4j.ConfigurationBase;
 import de.clayntech.config4j.event.ConfigurationChangeEvent;
 
 import java.io.OutputStream;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 
@@ -30,32 +31,22 @@ public class SimpleConfiguration extends ConfigurationBase {
 
     @Override
     public void set(String key, String val) {
-        String old=properties.getProperty(key);
+        Objects.requireNonNull(val);
+        Objects.requireNonNull(key);
+        String old = properties.getProperty(key);
         properties.setProperty(key, val);
-        boolean fire=false;
-        if(old!=null&&val==null) {
-            fire=true;
-        }else if(old!=null&&!old.equals(val)){
-            fire=true;
-        }else if(val!=null&&!val.equals(old)) {
-            fire=true;
+        boolean fire = false;
+        if (!val.equals(old)) {
+            fire = true;
         }
-        if(fire) {
-            ConfigurationChangeEvent evt=new ConfigurationChangeEvent(key,old,val);
-            getListeners().stream().forEach((lis)->lis.configurationChanged(evt));
+        if (fire) {
+            ConfigurationChangeEvent evt = new ConfigurationChangeEvent(key, old, val);
+            getListeners().stream().forEach((lis) -> lis.configurationChanged(evt));
         }
     }
 
     @Override
     public Set<String> getConfigurations() {
         return properties.stringPropertyNames();
-    }
-
-    private String extractProfileName(String str) {
-        int profNameEnd = str.indexOf(".");
-        if (profNameEnd < 0) {
-            profNameEnd = str.length();
-        }
-        return str.substring(1, profNameEnd);
     }
 }
