@@ -9,6 +9,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 
+/**
+ * This interface provides loading and storing of a configuration. Because the {@link ConfigurationFactory} is designed
+ * for stream based access (mostly files) and you may want some other types (maybe database based configuration)
+ * this interface is used by {@link Config4J}.
+ */
 public interface ConfigurationProvider {
     Configuration loadConfiguration() throws IOException;
 
@@ -33,6 +38,7 @@ public interface ConfigurationProvider {
                     e.printStackTrace();
                 }
             }
+
             private void createConfigFile() throws IOException {
                 if(config==null&&!Files.exists(configFile.toPath())) {
                     Files.createDirectories(configFile.getParentFile().toPath());
@@ -42,6 +48,7 @@ public interface ConfigurationProvider {
                     createConfigFile();
                 }
             }
+
             @Override
             public Configuration loadConfiguration() throws IOException {
                 createConfigFile();

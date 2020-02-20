@@ -80,12 +80,18 @@ public final class Config4J {
         }
     }
 
+    /**
+     * Sets the provider for {@link Config4J} that provides the globally used configuration.
+     *
+     * @param provider the provider for the globally used configuration.
+     */
     public static void setProvider(ConfigurationProvider provider) {
         Config4J.provider = provider;
     }
 
     /**
-     * Returns the configuration from the given provider.
+     * Returns the configuration from the given provider. If no provider was installed a dummy configuration will be returned
+     * that can save settings during runtime but will lose them (if not saved otherwise).
      *
      * @return the registered providers configuration
      */
