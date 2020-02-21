@@ -27,7 +27,7 @@ public class ConfigurationTest {
     public static Collection getConfigurations() {
         return Arrays.asList(new Object[][]{
                 {SimpleConfiguration.class},
-                {JsonConfiguration.class}
+                {SimpleProfiledConfiguration.class}
         });
     }
 

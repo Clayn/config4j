@@ -26,7 +26,9 @@ public interface ConfigurationReader {
     default Configuration load(Source src) throws SourceMissingException, IOException {
         Objects.requireNonNull(src);
         if (src.exists()) {
-            return load(src.open());
+            try (InputStream in = src.open()) {
+                return load(in);
+            }
         } else {
             if (Config4JSetting.THROW_ERROR_ON_SOURCE_MISSING.get()) {
                 throw new SourceMissingException("Missing source " + src.getSource());

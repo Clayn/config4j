@@ -32,4 +32,8 @@ public final class Config4JSetting<T> {
     public T get() {
         return Config4J.getProjectConfiguration().get(settingsKey, defaultValue);
     }
+
+    public void set(T val) {
+        Config4J.getProjectConfiguration().set(settingsKey, val);
+    }
 }

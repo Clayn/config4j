@@ -17,4 +17,6 @@ public class Config4JFileParserTest {
         Assert.assertNotNull(conf);
         Assert.assertEquals("value", conf.get("key"));
     }
+
+
 }

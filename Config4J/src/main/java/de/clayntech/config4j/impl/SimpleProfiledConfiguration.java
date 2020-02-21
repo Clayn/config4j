@@ -6,18 +6,18 @@ import de.clayntech.config4j.event.ConfigurationChangeEvent;
 
 import java.util.*;
 
-public class JsonConfiguration extends ConfigurationBase implements ProfiledConfiguration {
+public class SimpleProfiledConfiguration extends ConfigurationBase implements ProfiledConfiguration {
     private final String name;
-    private final JsonConfiguration parent;
+    private final SimpleProfiledConfiguration parent;
     private final Map<String, ProfiledConfiguration> profiles = new HashMap<>();
     private final Properties properties = new Properties();
 
-    private JsonConfiguration(String name, JsonConfiguration parent) {
+    private SimpleProfiledConfiguration(String name, SimpleProfiledConfiguration parent) {
         this.name = name;
         this.parent = parent;
     }
 
-    public JsonConfiguration() {
+    public SimpleProfiledConfiguration() {
         this(TOP_LEVEL_PROFILE_NAME, null);
     }
 
@@ -71,7 +71,7 @@ public class JsonConfiguration extends ConfigurationBase implements ProfiledConf
     @Override
     public ProfiledConfiguration createProfile(String profile) {
         if (!profiles.containsKey(profile)) {
-            profiles.put(profile, new JsonConfiguration(profile, this));
+            profiles.put(profile, new SimpleProfiledConfiguration(profile, this));
         }
         return getProfile(profile);
     }
@@ -106,7 +106,7 @@ public class JsonConfiguration extends ConfigurationBase implements ProfiledConf
         }
         if (fire) {
             ConfigurationChangeEvent evt = new ConfigurationChangeEvent(key, old, val);
-            getListeners().stream().forEach((lis) -> lis.configurationChanged(evt));
+            getListeners().forEach((lis) -> lis.configurationChanged(evt));
         }
     }
 
