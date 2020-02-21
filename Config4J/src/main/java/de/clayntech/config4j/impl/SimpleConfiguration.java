@@ -24,11 +24,24 @@ public class SimpleConfiguration extends ConfigurationBase {
         this.properties = properties;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param key the key to get the value for
+     * @param def the default value if no value was found
+     * @return
+     */
     @Override
     public String get(String key, String def) {
         return properties.getProperty(key, def);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param key the key for the value
+     * @param val the value to store
+     */
     @Override
     public void set(String key, String val) {
         Objects.requireNonNull(val);
@@ -41,10 +54,15 @@ public class SimpleConfiguration extends ConfigurationBase {
         }
         if (fire) {
             ConfigurationChangeEvent evt = new ConfigurationChangeEvent(key, old, val);
-            getListeners().stream().forEach((lis) -> lis.configurationChanged(evt));
+            getListeners().forEach((lis) -> lis.configurationChanged(evt));
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public Set<String> getConfigurations() {
         return properties.stringPropertyNames();

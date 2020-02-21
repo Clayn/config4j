@@ -1,17 +1,16 @@
 package de.clayntech.config4j;
 
 
+import de.clayntech.config4j.conf.Config4JSetting;
 import de.clayntech.config4j.impl.SimpleConfiguration;
+import de.clayntech.config4j.io.Source;
 import de.clayntech.config4j.util.Config4JFileParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main class of the config4j project to provide application wide access to the configuration.
@@ -21,9 +20,28 @@ public final class Config4J {
     private static final Logger LOG = LoggerFactory.getLogger(Config4J.class);
     private static ConfigurationProvider provider = null;
     private static final Configuration DUMMY_CONFIGURATION = new SimpleConfiguration();
+    private static final Configuration PROJECT_CONFIGURATION = new SimpleConfiguration();
+    private static final List<Source> SOURCE_LIST = new ArrayList<>();
+
+    static {
+        SOURCE_LIST.add(new Source("/application.c4j", Source.SourceType.RESOURCE));
+        SOURCE_LIST.add(new Source(System.getProperty("user.dir") + "/application.c4j", Source.SourceType.FILE));
+    }
 
     private Config4J() {
 
+    }
+
+    /**
+     * Returns the Config4J project configuration. This configuration can be used to configure
+     * different behaviours of Config4J. All available settings are in {@link Config4JSetting}.
+     * This configuration is not meant to be stored somewhere (but you can if you want to) and may be filled
+     * in the application or with your custom configuration.
+     *
+     * @return the projects configuration.
+     */
+    public static Configuration getProjectConfiguration() {
+        return PROJECT_CONFIGURATION;
     }
 
     /**
@@ -32,33 +50,24 @@ public final class Config4J {
      * {@link Config4JFileParser} class.
      */
     public static void initDefaultConfiguration() {
-        String source = "/application.c4j";
-        LOG.debug("Searching for default configuration at: {}", source);
-        URL u = Config4J.class.getResource(source);
-        InputStream in = null;
-        if (u != null) {
-            in = Config4J.class.getResourceAsStream(source);
-        } else {
-            LOG.debug("No such file found");
-            source = new File(System.getProperty("user.dir"), "application.c4j").getAbsolutePath();
-            LOG.debug("Searching for default configuration at: {}", source);
-            if (Files.exists(Paths.get(source))) {
+        for (Source src : SOURCE_LIST) {
+            LOG.debug("Checking for application configuration (type: {}) at: {}", src.getType(), src.getSource());
+            if (src.exists()) {
+                LOG.debug("Found application configuration");
                 try {
-                    in = Files.newInputStream(Paths.get(source));
+                    Configuration conf = Config4JFileParser.loadConfiguration(src.open());
+                    if (Config4JSetting.DEBUG_LOADED_DEFAULT_CONFIGURATION.get()) {
+                        for (String key : conf.getConfigurations()) {
+                            LOG.debug("{} = {}", key, conf.get(key));
+                        }
+                    }
+                    importDefaultConfiguration(conf);
                 } catch (IOException e) {
-                    LOG.error("Failed to open the default configuration file", e);
+                    LOG.debug("Failed to load the configuration", e);
                 }
+                break;
             } else {
-                LOG.debug("No such file found. Skipping initialization of the default configuration");
-            }
-        }
-        if (in != null) {
-            try (InputStream input = in) {
-                Configuration conf = Config4JFileParser.loadConfiguration(input);
-                importDefaultConfiguration(conf);
-                LOG.debug("Imported the default configuration from {}", source);
-            } catch (IOException e) {
-                LOG.error("Failed to read the default configuration file", e);
+                LOG.debug("Application configuration does not exist");
             }
         }
     }

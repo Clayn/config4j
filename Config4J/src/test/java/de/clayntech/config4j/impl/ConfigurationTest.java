@@ -1,6 +1,8 @@
 package de.clayntech.config4j.impl;
 
 import de.clayntech.config4j.Configuration;
+import de.clayntech.config4j.event.ConfigurationChangeEvent;
+import de.clayntech.config4j.event.ConfigurationListener;
 import de.clayntech.config4j.impl.key.IntKey;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +12,8 @@ import org.junit.runners.Parameterized;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(Parameterized.class)
 public class ConfigurationTest {
@@ -87,5 +91,51 @@ public class ConfigurationTest {
     @Test(expected = NullPointerException.class)
     public void testSetKeyKeyValueNull() {
         configuration.set(null, 5);
+    }
+
+    @Test
+    public void testAddListener() {
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("Key 1", false);
+        map.put("Key 2", false);
+        configuration.set("Key 1", "Old");
+        configuration.addListener(new ConfigurationListener() {
+            @Override
+            public void configurationChanged(ConfigurationChangeEvent evt) {
+                if (map.containsKey(evt.getKey())) {
+                    map.put(evt.getKey(), true);
+                }
+                map.put(evt.getOldValue(), true);
+                map.put(evt.getNewValue(), true);
+            }
+        });
+        configuration.set("Key 1", "Val");
+        Assert.assertTrue(map.get("Key 1"));
+        Assert.assertTrue(map.get("Old"));
+        Assert.assertTrue(map.get("Val"));
+        Assert.assertFalse(map.get("Key 2"));
+    }
+
+    @Test
+    public void testRemoveListener() {
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("Key 1", false);
+        map.put("Key 2", false);
+        ConfigurationListener listener = new ConfigurationListener() {
+            @Override
+            public void configurationChanged(ConfigurationChangeEvent evt) {
+                if (map.containsKey(evt.getKey())) {
+                    map.put(evt.getKey(), true);
+                }
+            }
+        };
+        configuration.addListener(listener);
+        configuration.set("Key 1", "Val");
+        Assert.assertTrue(map.get("Key 1"));
+        Assert.assertFalse(map.get("Key 2"));
+        configuration.removeListener(listener);
+        configuration.set("Key 2", "Val");
+        Assert.assertTrue(map.get("Key 1"));
+        Assert.assertFalse(map.get("Key 2"));
     }
 }

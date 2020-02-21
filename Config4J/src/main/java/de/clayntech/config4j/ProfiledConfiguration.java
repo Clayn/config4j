@@ -16,7 +16,7 @@ public interface ProfiledConfiguration extends Configuration {
      *
      * @return all available profile names
      */
-    default Set<String> getProfilesNames() {
+    default Set<String> getProfileNames() {
         return getProfiles()
                 .stream()
                 .map(ProfiledConfiguration::getName)

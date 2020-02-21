@@ -58,4 +58,28 @@ public class ProfiledConfigurationTest {
         configuration.createProfile("profile");
         Assert.assertNotNull(configuration.getProfile("profile"));
     }
+
+    @Test
+    public void testGetName() {
+        testGetProfiles();
+        Assert.assertEquals(ProfiledConfiguration.TOP_LEVEL_PROFILE_NAME, configuration.getName());
+        Assert.assertEquals("profile1", configuration.getProfile("profile1").getName());
+    }
+
+    @Test
+    public void testGetParent() {
+        testGetProfiles();
+        Assert.assertNull(configuration.getParent());
+        Assert.assertEquals(configuration, configuration.getProfile("profile1").getParent());
+    }
+
+    @Test
+    public void testGetProfileNames() {
+        testGetProfiles();
+        Assert.assertEquals(1, configuration.getProfileNames().size());
+        Assert.assertEquals(1, configuration.getProfile("profile1").getProfileNames().size());
+
+        Assert.assertTrue(configuration.getProfileNames().contains("profile1"));
+        Assert.assertTrue(configuration.getProfile("profile1").getProfileNames().contains("profile2"));
+    }
 }
