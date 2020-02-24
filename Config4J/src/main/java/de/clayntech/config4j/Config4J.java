@@ -72,6 +72,9 @@ public final class Config4J {
         }
     }
 
+    /**
+     * @param def
+     */
     public static void importDefaultConfiguration(Configuration def) {
         if (provider == null) {
             return;

@@ -61,13 +61,20 @@ public interface ConfigurationProvider {
             @Override
             public void storeConfiguration() throws IOException {
                 createConfigFile();
-                try(OutputStream out=Files.newOutputStream(configFile.toPath())) {
-                    factory.getWriter().store(out,config);
+                try (OutputStream out = Files.newOutputStream(configFile.toPath())) {
+                    factory.getWriter().store(out, config);
                 }
             }
         };
     }
 
+    /**
+     * Creates a new {@link ConfigurationProvider provider} that uses the given file to load and store its configuration.
+     * The file will be in the {@link java.util.Properties properties} format.
+     *
+     * @param configFile the file for the configuration
+     * @return a new provider for the given file
+     */
     static ConfigurationProvider newFileBasedProvider(File configFile) {
         return ConfigurationProvider.newFileBasedProvider(configFile, new SimpleConfigurationFactory());
     }
