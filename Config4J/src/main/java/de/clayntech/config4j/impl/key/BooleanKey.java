@@ -2,6 +2,9 @@ package de.clayntech.config4j.impl.key;
 
 import de.clayntech.config4j.Key;
 
+/**
+ * Key implementation to access {@link Boolean} values
+ */
 public class BooleanKey extends Key<Boolean> {
     public BooleanKey(String key) {
         super(key);

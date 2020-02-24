@@ -1,7 +1,9 @@
 package de.clayntech.config4j.impl.key;
 
 import de.clayntech.config4j.Key;
-
+/**
+ * Key implementation to access {@link Integer} values
+ */
 public class IntKey extends Key<Integer> {
     public IntKey(String key) {
         super(key);
