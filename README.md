@@ -20,3 +20,38 @@ Currently it is only hosted in the GitHub repository
   <version>0.1</version>
 </dependency>
 ````
+
+### Usage
+
+Config4J is designed with two usage concepts in mind.
+
+1. Global/static accessed configuration
+2. Individual configurations
+
+#### Global Accessed Configuration
+
+By using the Config4J class your application can access one central managed configuration. This configuration 
+is provided by a ConfigurationProvider and should be configured very early during the startup process. 
+You than have one central configuration that you can easily access from everywhere in your application. 
+
+
+#### Individual Configurations
+
+In contrast to the above concept you can give different parts of your application different configurations. 
+These may be also provided by a ConfigurationProvider but can be managed in many different ways that suites your use case 
+the best. You may have a plugin system and want to give each plugin a configuration that can be tempered with by other plugins. 
+
+
+#### Future
+
+Some features planned for future releases:
+
+* Spring support
+* Configuration of objects
+    * Using field annotations
+    
+#### Contributing
+
+Feel free to create new issues if you find any bugs or have ideas for wonderful features. 
+
+Of course you can also create PRs to contribute to the code

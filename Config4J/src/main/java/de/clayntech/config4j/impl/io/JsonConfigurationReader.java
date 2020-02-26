@@ -1,6 +1,5 @@
 package de.clayntech.config4j.impl.io;
 
-import de.clayntech.config4j.Configuration;
 import de.clayntech.config4j.ProfiledConfiguration;
 import de.clayntech.config4j.impl.SimpleProfiledConfiguration;
 import de.clayntech.config4j.impl.util.JsonConverter;
@@ -11,12 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class JsonConfigurationReader implements ConfigurationReader {
-    private final JsonConverter converter;
-
+/**
+ * Reads a configuration from a stream that is formatted as json and uses a {@link JsonConverter converter} for conversion.
+ */
+public class JsonConfigurationReader extends AbstractJsonConverterUser implements ConfigurationReader {
 
     public JsonConfigurationReader(JsonConverter converter) {
-        this.converter = converter;
+        super(converter);
     }
 
 
@@ -30,6 +30,6 @@ public class JsonConfigurationReader implements ConfigurationReader {
             }
         }
         String json = jsonBuilder.toString();
-        return converter.fromJson(json, SimpleProfiledConfiguration.class);
+        return getConverter().fromJson(json, SimpleProfiledConfiguration.class);
     }
 }
