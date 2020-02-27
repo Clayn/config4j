@@ -13,6 +13,9 @@
             <url>https://maven.pkg.github.com/Clayn/config4j</url>
         </repository>
     </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         <plugins>
             <plugin>

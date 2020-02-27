@@ -3,7 +3,10 @@ package de.clayntech.config4j.impl.key;
 import de.clayntech.config4j.Key;
 
 /**
- * Key implementation to access {@link Boolean} values
+ * Key implementation to access {@link Boolean} values.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class BooleanKey extends Key<Boolean> {
     public BooleanKey(String key) {

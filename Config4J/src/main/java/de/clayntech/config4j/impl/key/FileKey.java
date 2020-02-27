@@ -4,7 +4,10 @@ import de.clayntech.config4j.Key;
 
 import java.io.File;
 /**
- * Key implementation to access {@link File} values
+ * Key implementation to access {@link File} values.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class FileKey extends Key<File> {
     public FileKey(String key) {

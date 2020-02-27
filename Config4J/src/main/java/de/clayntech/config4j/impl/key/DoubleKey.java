@@ -2,7 +2,10 @@ package de.clayntech.config4j.impl.key;
 
 import de.clayntech.config4j.Key;
 /**
- * Key implementation to access {@link Double} values
+ * Key implementation to access {@link Double} values.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class DoubleKey extends Key<Double> {
     public DoubleKey(String key) {

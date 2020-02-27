@@ -7,6 +7,9 @@ import java.util.Set;
 
 /**
  * Provides the basic API to store and get values. The values must be parsable to strings associated with string keys.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public interface Configuration {
 
@@ -54,6 +57,7 @@ public interface Configuration {
     /**
      * Returns the value for the given key. If no such value was found, returns the {@code def} value.
      *
+     * @param <T> the type of the value to get
      * @param key the key to get the value for
      * @param def the default value if no value was found
      * @return the value stored with the given key or {@code def} if no value is available
@@ -75,6 +79,7 @@ public interface Configuration {
      * <br>
      * Defaults to: {@code return get(key,null);}
      *
+     * @param <T> the type of the value to get
      * @param key the key to get the value for. Must not be {@code null}
      * @return the value stored with the given key or {@code null} if no value is available
      * @see #get(String, String)
@@ -91,6 +96,7 @@ public interface Configuration {
      * The key is used to parse the value to a string.<br>
      * Defaults to: {@code set(key.getKey(),key.convertForward(val));}
      *
+     * @param <T> the type of the value to store
      * @param key the key for the value
      * @param val the value to store
      * @see #set(String, String)

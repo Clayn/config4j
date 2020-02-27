@@ -6,9 +6,17 @@ import java.util.stream.Collectors;
 /**
  * Interface for configurations that can have the same keys with different values depending of some identifier.
  * An example could be INI files with their sections.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public interface ProfiledConfiguration extends Configuration {
 
+    /**
+     * Default name for the top level profile which has no parents.
+     * <br>
+     *     Value: {@code "DEFAULT"}
+     */
     String TOP_LEVEL_PROFILE_NAME = "DEFAULT";
 
     /**

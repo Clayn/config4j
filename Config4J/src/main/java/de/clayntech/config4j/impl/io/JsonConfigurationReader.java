@@ -12,6 +12,9 @@ import java.io.InputStreamReader;
 
 /**
  * Reads a configuration from a stream that is formatted as json and uses a {@link JsonConverter converter} for conversion.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class JsonConfigurationReader extends AbstractJsonConverterUser implements ConfigurationReader {
 

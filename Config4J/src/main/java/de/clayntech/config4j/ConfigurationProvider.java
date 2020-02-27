@@ -13,15 +13,20 @@ import java.nio.file.Files;
  * This interface provides loading and storing of a configuration. Because the {@link ConfigurationFactory} is designed
  * for stream based access (mostly files) and you may want some other types (maybe database based configuration)
  * this interface is used by {@link Config4J}.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public interface ConfigurationProvider {
+
+
     Configuration loadConfiguration() throws IOException;
 
     void storeConfiguration() throws IOException;
 
     /**
      * Creates a new {@link ConfigurationProvider provider} that uses the given file to load and store
-     * its configuration. The file will be created upon calling this method.
+     * its configuration. The file will be created upon calling this method if it does not exist yet.
      *
      * @param configFile the file for the configuration
      * @param factory    the factory to save and load the configuration
@@ -77,5 +82,9 @@ public interface ConfigurationProvider {
      */
     static ConfigurationProvider newFileBasedProvider(File configFile) {
         return ConfigurationProvider.newFileBasedProvider(configFile, new SimpleConfigurationFactory());
+    }
+
+    static ConfigurationProvider newFileBasedProvider(String fileName) {
+        return newFileBasedProvider(new File(System.getProperty("user.dir"), fileName));
     }
 }

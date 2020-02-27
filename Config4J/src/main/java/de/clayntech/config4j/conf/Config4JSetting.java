@@ -10,6 +10,8 @@ import de.clayntech.config4j.impl.key.KeyFactory;
  * can be done with this class.
  *
  * @param <T> the type of the setting
+ * @author Clayn
+ * @since 0.1
  */
 public final class Config4JSetting<T> {
     /**
@@ -31,6 +33,8 @@ public final class Config4JSetting<T> {
      */
     public static final Config4JSetting<Boolean> CONFIGURATION_BASE_UNMODIFIABLE_LIST = new Config4JSetting<>(KeyFactory.createKey("config4j.setting.base.unmodifiable", boolean.class), true);
 
+    public static final Config4JSetting<Boolean> CREATE_DEFAULT_PROVIDER = new Config4JSetting<>(KeyFactory.createKey("config4j.setting.base.unmodifiable", boolean.class), true);
+
 
     private final Key<T> settingsKey;
     private final T defaultValue;
@@ -41,9 +45,11 @@ public final class Config4JSetting<T> {
     }
 
     /**
-     * Returns the current project configuration value for this setting.
+     * Returns the current project configuration value for this setting. If no value was set, the default
+     * value gets returned.
      *
-     * @return the current project configuration value for this setting
+     * @return the current project configuration value for this setting or the default value if no
+     * configuration was set.
      */
     public T get() {
         return Config4J.getProjectConfiguration().get(settingsKey, defaultValue);

@@ -2,12 +2,27 @@ package de.clayntech.config4j;
 
 import de.clayntech.config4j.util.Converter;
 
+import java.util.Objects;
+
+/**
+ * The key class is responsible for identifying values in a configuration and parse them from and to a specific type.
+ * While you can use only String objects for the keys, using this class gives you configuration values
+ * of the desired type and also can do some checks (e.g. if the value is of the expected type).
+ *
+ * @param <T> the type of the configuration value
+ * @author Clayn
+ * @since 0.1
+ */
 public abstract class Key<T> implements Converter<T, String> {
 
     private final String key;
 
+    /**
+     * Creates a new key instance with the given identification key
+     * @param key the key for identification
+     */
     public Key(String key) {
-        this.key = key;
+        this.key = Objects.requireNonNull(key, "The identification key must not be 'null'");
     }
 
     /**
@@ -17,7 +32,7 @@ public abstract class Key<T> implements Converter<T, String> {
      * @param key the name for the key
      * @return a new key to access some values.
      */
-    public static Key<String> createBasicKey(String key) {
+    public static Key<String> createAccessKey(String key) {
         return new BasicKey(key);
     }
 
@@ -41,8 +56,8 @@ public abstract class Key<T> implements Converter<T, String> {
     /**
      * {@inheritDoc}
      *
-     * @param src
-     * @return
+     * @param src {@inheritDoc}
+     * @return {@inheritDoc}
      */
     @Override
     public final String convertForward(T src) {
@@ -52,8 +67,8 @@ public abstract class Key<T> implements Converter<T, String> {
     /**
      * {@inheritDoc}
      *
-     * @param src
-     * @return
+     * @param src {@inheritDoc}
+     * @return {@inheritDoc}
      */
     @Override
     public final T convertBackward(String src) {
@@ -84,5 +99,28 @@ public abstract class Key<T> implements Converter<T, String> {
         public String fromString(String src) {
             return src;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Key)) return false;
+        Key<?> key1 = (Key<?>) o;
+        return key.equals(key1.key);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
     }
 }

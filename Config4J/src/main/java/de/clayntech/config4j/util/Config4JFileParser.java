@@ -8,6 +8,23 @@ import de.clayntech.config4j.io.ConfigurationFactory;
 
 import java.io.*;
 
+/**
+ * Utility class to load configurations stored in the {@code c4j} file format. <br>
+ * The format is:<br><br>
+ * <code>
+ * ## [factory]<br>
+ * [configuration data]
+ * </code>
+ * <br><br>
+ * For {@code [factory]} you have to specify the factory class used to get the reader and writer.<br>
+ * There are some shortcut values available:<br>
+ * {@code simple} for the {@link SimpleConfigurationFactory}<br>
+ * {@code json} for the {@link JsonConfigurationFactory}<br>
+ * {@code [configuration data]} is the normal data for a configuration in the desired format e.g. json
+ *
+ * @author Clayn
+ * @since 0.1
+ */
 public final class Config4JFileParser {
     /**
      * Attempts to load a configuration from the given source. The source must provide the configuration in

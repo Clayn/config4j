@@ -3,7 +3,10 @@ package de.clayntech.config4j.event;
 import java.util.Objects;
 
 /**
- * Event that holds several information about a configuration change
+ * Event that holds several information about a configuration change.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class ConfigurationChangeEvent {
     private final String key;

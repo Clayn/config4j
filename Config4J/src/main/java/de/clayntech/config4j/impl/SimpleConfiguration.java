@@ -10,7 +10,10 @@ import java.util.Set;
 
 /**
  * Configuration implementation that stores the values in a simple properties file.
- * The format is the same as used by {@link Properties} using {@link Properties#store(OutputStream, String)}
+ * The format is the same as used by {@link Properties} using {@link Properties#store(OutputStream, String)}.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class SimpleConfiguration extends ConfigurationBase {
 
@@ -29,7 +32,7 @@ public class SimpleConfiguration extends ConfigurationBase {
      *
      * @param key the key to get the value for
      * @param def the default value if no value was found
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public String get(String key, String def) {
@@ -61,7 +64,7 @@ public class SimpleConfiguration extends ConfigurationBase {
     /**
      * {@inheritDoc}
      *
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public Set<String> getConfigurations() {

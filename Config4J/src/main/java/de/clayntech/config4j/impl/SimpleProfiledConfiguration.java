@@ -8,13 +8,18 @@ import java.util.*;
 
 public class SimpleProfiledConfiguration extends ConfigurationBase implements ProfiledConfiguration {
     private final String name;
-    private final SimpleProfiledConfiguration parent;
+    private final ProfiledConfiguration parent;
     private final Map<String, ProfiledConfiguration> profiles = new HashMap<>();
     private final Properties properties = new Properties();
 
-    private SimpleProfiledConfiguration(String name, SimpleProfiledConfiguration parent) {
+
+    SimpleProfiledConfiguration(String name, ProfiledConfiguration parent) {
         this.name = name;
         this.parent = parent;
+    }
+
+    Map<String, ProfiledConfiguration> getProfiles0() {
+        return profiles;
     }
 
     public SimpleProfiledConfiguration() {
@@ -24,7 +29,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
     /**
      * {@inheritDoc}
      *
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -34,7 +39,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
     /**
      * {@inheritDoc}
      *
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public ProfiledConfiguration getParent() {
@@ -44,7 +49,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
     /**
      * {@inheritDoc}
      *
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public Set<ProfiledConfiguration> getProfiles() {
@@ -55,7 +60,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
      * {@inheritDoc}
      *
      * @param profile the name for the profile
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public ProfiledConfiguration getProfile(String profile) {
@@ -66,7 +71,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
      * {@inheritDoc}
      *
      * @param profile the name for the profile
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public ProfiledConfiguration createProfile(String profile) {
@@ -81,7 +86,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
      *
      * @param key the key to get the value for
      * @param def the default value if no value was found
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public String get(String key, String def) {
@@ -113,7 +118,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
     /**
      * {@inheritDoc}
      *
-     * @return
+     * @return {@inheritDoc}
      */
     @Override
     public Set<String> getConfigurations() {

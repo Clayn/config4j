@@ -12,6 +12,9 @@ import de.clayntech.config4j.io.ConfigurationWriter;
  * If no such converter was set, an instance of {@link GsonConverter} will be used. That may cause errors
  * as the dependency is not added to the library and must be provided. That way you can either use a different
  * converter or your used Gson version.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public class JsonConfigurationFactory implements ConfigurationFactory {
 

@@ -6,6 +6,9 @@ import java.util.Objects;
 
 /**
  * Basic class for all others that require a {@link JsonConverter} upon initializing.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public abstract class AbstractJsonConverterUser {
     private final JsonConverter converter;

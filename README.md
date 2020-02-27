@@ -41,6 +41,22 @@ In contrast to the above concept you can give different parts of your applicatio
 These may be also provided by a ConfigurationProvider but can be managed in many different ways that suites your use case 
 the best. You may have a plugin system and want to give each plugin a configuration that can be tempered with by other plugins. 
 
+#### How to start
+
+Do you have added the dependency for Config4J? Well you are now ready to go just by using 
+
+````java
+Config4J.getConfiguration()
+````
+
+with the default settings, a configuration file will be created (if it does not exist yet) 
+at 
+````
+System.getProperty("user.dir")/application.config4j.properties
+````
+which is in the standard properties file format. 
+
+Of course it won't have any settings yet but you can use that configuration and save it.
 
 #### Future
 

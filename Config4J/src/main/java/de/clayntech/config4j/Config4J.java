@@ -1,13 +1,17 @@
 package de.clayntech.config4j;
 
 
+import de.clayntech.config4j.annotation.Configurable;
+import de.clayntech.config4j.annotation.Memory;
 import de.clayntech.config4j.conf.Config4JSetting;
+import de.clayntech.config4j.impl.MemoryConfiguration;
 import de.clayntech.config4j.impl.SimpleConfiguration;
 import de.clayntech.config4j.io.Source;
 import de.clayntech.config4j.util.Config4JFileParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +19,14 @@ import java.util.List;
 /**
  * Main class of the config4j project to provide application wide access to the configuration.
  * If your use case requires a more protected access you don't have to use this class at all.
+ *
+ * @author Clayn
+ * @since 0.1
  */
 public final class Config4J {
     private static final Logger LOG = LoggerFactory.getLogger(Config4J.class);
     private static ConfigurationProvider provider = null;
-    private static final Configuration DUMMY_CONFIGURATION = new SimpleConfiguration();
+    private static final Configuration DUMMY_CONFIGURATION = new MemoryConfiguration();
     private static final Configuration PROJECT_CONFIGURATION = new SimpleConfiguration();
     private static final List<Source> SOURCE_LIST = new ArrayList<>();
 
@@ -31,6 +38,7 @@ public final class Config4J {
     private Config4J() {
 
     }
+
 
     /**
      * Returns the Config4J project configuration. This configuration can be used to configure
@@ -49,6 +57,7 @@ public final class Config4J {
      * loading the actual configuration to overwrite the default values. The loading is done using the
      * {@link Config4JFileParser} class.
      */
+    @Configurable("DEBUG_LOADED_DEFAULT_CONFIGURATION")
     public static void initDefaultConfiguration() {
         for (Source src : SOURCE_LIST) {
             LOG.debug("Checking for application configuration (type: {}) at: {}", src.getType(), src.getSource());
@@ -72,9 +81,6 @@ public final class Config4J {
         }
     }
 
-    /**
-     * @param def
-     */
     public static void importDefaultConfiguration(Configuration def) {
         if (provider == null) {
             return;
@@ -102,14 +108,23 @@ public final class Config4J {
     }
 
     /**
-     * Returns the configuration from the given provider. If no provider was installed a dummy configuration will be returned
+     * Returns the configuration from the given provider. If no provider was installed and {@link Config4JSetting#CREATE_DEFAULT_PROVIDER}
+     * is set to {@code false} a dummy configuration will be returned. Otherwise a configuration for
+     * {@code System.getProperty("user.dir")/application.config4j.properties} gets created and returned
      * that can save settings during runtime but will lose them (if not saved otherwise).
      *
      * @return the registered providers configuration
      */
+    @Configurable("CREATE_DEFAULT_PROVIDER")
     public static Configuration getConfiguration() {
         try {
             if(provider==null) {
+                if (Config4JSetting.CREATE_DEFAULT_PROVIDER.get()) {
+                    File f = new File(System.getProperty("user.dir"), "application.config4j.properties");
+                    LOG.info("Creating a default provider for the file: {}", f.getAbsolutePath());
+                    provider = ConfigurationProvider.newFileBasedProvider(f);
+                    return getConfiguration();
+                }
                 LOG.warn("Configuration was requested with no provider installed");
                 return DUMMY_CONFIGURATION;
             }else {
@@ -125,7 +140,7 @@ public final class Config4J {
      * returned by {@link #getConfiguration()};
      */
     public static void saveConfiguration() {
-        if(provider==null) {
+        if (provider == null) {
             LOG.warn("No provider is installed for saving the configuration");
             return;
         }
@@ -134,5 +149,16 @@ public final class Config4J {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Returns whether or not the configuration can be saved. The check is done with the
+     * {@link Memory} annotation.
+     *
+     * @param conf the configuration to check
+     * @return {@code true} if and only if the configuration is not annotated with {@link Memory}, {@code false} otherwise.
+     */
+    public static boolean isStorable(Configuration conf) {
+        return conf != null && !conf.getClass().isAnnotationPresent(Memory.class);
     }
 }
