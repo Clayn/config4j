@@ -22,7 +22,8 @@ public class ProfiledConfigurationTest {
     @Parameterized.Parameters
     public static Collection getConfigurations() {
         return Arrays.asList(new Object[][]{
-                {SimpleProfiledConfiguration.class}
+                {SimpleProfiledConfiguration.class},
+                {MemoryConfiguration.class}
         });
     }
 

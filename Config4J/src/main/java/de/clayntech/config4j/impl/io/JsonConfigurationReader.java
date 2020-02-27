@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 /**
  * Reads a configuration from a stream that is formatted as json and uses a {@link JsonConverter converter} for conversion.
@@ -25,6 +26,7 @@ public class JsonConfigurationReader extends AbstractJsonConverterUser implement
 
     @Override
     public ProfiledConfiguration load(InputStream in) throws IOException {
+        Objects.requireNonNull(in);
         StringBuilder jsonBuilder = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             String line = null;

@@ -53,7 +53,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
      */
     @Override
     public Set<ProfiledConfiguration> getProfiles() {
-        return new HashSet<>(profiles.values());
+        return new HashSet<>(getProfiles0().values());
     }
 
     /**
@@ -64,7 +64,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
      */
     @Override
     public ProfiledConfiguration getProfile(String profile) {
-        return profiles.get(profile);
+        return getProfiles0().get(profile);
     }
 
     /**
@@ -75,8 +75,8 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
      */
     @Override
     public ProfiledConfiguration createProfile(String profile) {
-        if (!profiles.containsKey(profile)) {
-            profiles.put(profile, new SimpleProfiledConfiguration(profile, this));
+        if (!getProfiles0().containsKey(profile)) {
+            getProfiles0().put(profile, new SimpleProfiledConfiguration(profile, this));
         }
         return getProfile(profile);
     }
