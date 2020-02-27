@@ -3,6 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <name>Config4J</name>
+    <description>A small library to help you manage your application configuration</description>
+    <licenses>
+        <license>
+            <name>MIT</name>
+        </license>
+    </licenses>
     <groupId>de.clayntech</groupId>
     <artifactId>config4j</artifactId>
     <version>0.1-SNAPSHOT</version>
@@ -13,6 +20,17 @@
             <url>https://maven.pkg.github.com/Clayn/config4j</url>
         </repository>
     </distributionManagement>
+    <developers>
+        <developer>
+            <id>clayn</id>
+            <name>Clayn</name>
+            <roles>
+                <role>
+                    Developer
+                </role>
+            </roles>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
