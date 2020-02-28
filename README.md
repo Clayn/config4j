@@ -17,7 +17,7 @@ Currently it is only hosted in the GitHub repository
 <dependency>
   <groupId>de.clayntech</groupId>
   <artifactId>config4j</artifactId>
-  <version>0.1</version>
+  <version>0.1.1</version>
 </dependency>
 ````
 
