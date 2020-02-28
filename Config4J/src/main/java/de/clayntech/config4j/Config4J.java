@@ -98,6 +98,10 @@ public final class Config4J {
         }
     }
 
+    private static void configure(Object obj) {
+        new Configurator(getConfiguration()).configure(obj);
+    }
+
     /**
      * Sets the provider for {@link Config4J} that provides the globally used configuration.
      *
