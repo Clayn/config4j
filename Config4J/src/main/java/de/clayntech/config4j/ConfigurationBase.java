@@ -18,7 +18,7 @@ import java.util.Optional;
  */
 public abstract class ConfigurationBase implements Configuration {
 
-    private final List<ConfigurationListener> listeners = new ArrayList<>();
+    private transient final List<ConfigurationListener> listeners = new ArrayList<>();
 
     /**
      * Gives access to all listeners in this configuration base. If configured with {@link Config4JSetting#CONFIGURATION_BASE_UNMODIFIABLE_LIST}

@@ -24,6 +24,11 @@ public class URLKey extends Key<URL> {
     }
 
     @Override
+    protected Class<URL> getType() {
+        return URL.class;
+    }
+
+    @Override
     public URL fromString(String str) throws ValueParsingException {
         try {
             return str.trim().isEmpty() ? null : new URL(str);

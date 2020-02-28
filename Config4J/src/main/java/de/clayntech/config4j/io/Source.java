@@ -3,8 +3,8 @@ package de.clayntech.config4j.io;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -144,9 +144,10 @@ public final class Source {
                 return getClass().getResource(source) != null;
             case URL:
                 try {
-                    URLConnection con = new URL(source).openConnection();
-                    con.setConnectTimeout(2000);
-                    return true;
+                    URL url = new URL(source);
+                    HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+                    int responseCode = huc.getResponseCode();
+                    return responseCode != HttpURLConnection.HTTP_NOT_FOUND;
                 } catch (Exception e) {
                     return false;
                 }

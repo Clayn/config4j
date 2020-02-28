@@ -15,6 +15,11 @@ public class FileKey extends Key<File> {
     }
 
     @Override
+    protected Class<File> getType() {
+        return File.class;
+    }
+
+    @Override
     public File fromString(String str) {
         return str.trim().isEmpty() ? null : new File(str);
     }

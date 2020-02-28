@@ -31,8 +31,8 @@ public final class Config4J {
     private static final List<Source> SOURCE_LIST = new ArrayList<>();
 
     static {
-        SOURCE_LIST.add(new Source("/application.c4j", Source.SourceType.RESOURCE));
         SOURCE_LIST.add(new Source(System.getProperty("user.dir") + "/application.c4j", Source.SourceType.FILE));
+        SOURCE_LIST.add(new Source("/application.c4j", Source.SourceType.RESOURCE));
     }
 
     private Config4J() {
@@ -108,7 +108,8 @@ public final class Config4J {
     }
 
     /**
-     * Returns the configuration from the given provider. If no provider was installed and {@link Config4JSetting#CREATE_DEFAULT_PROVIDER}
+     * Returns the configuration from the given provider. The configuration will be loaded for each call of this method.
+     * If no provider was installed and {@link Config4JSetting#CREATE_DEFAULT_PROVIDER}
      * is set to {@code false} a dummy configuration will be returned. Otherwise a configuration for
      * {@code System.getProperty("user.dir")/application.config4j.properties} gets created and returned
      * that can save settings during runtime but will lose them (if not saved otherwise).

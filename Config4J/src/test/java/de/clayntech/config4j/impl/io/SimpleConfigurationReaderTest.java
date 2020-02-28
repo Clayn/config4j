@@ -1,10 +1,7 @@
 package de.clayntech.config4j.impl.io;
 
-import de.clayntech.config4j.Config4J;
 import de.clayntech.config4j.Configuration;
-import de.clayntech.config4j.conf.Config4JSetting;
 import de.clayntech.config4j.io.Source;
-import de.clayntech.config4j.io.SourceMissingException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,20 +33,5 @@ public class SimpleConfigurationReaderTest {
         Assert.assertEquals("Bah", conf.get("Key2"));
     }
 
-    @Test(expected = SourceMissingException.class)
-    public void testLoadConfigurationSourceMissing() throws IOException {
-        Source src = new Source("missing", Source.SourceType.RESOURCE);
-        new SimpleConfigurationReader().load(src);
-    }
 
-    @Test
-    public void testLoadConfigurationSourceMissingNoThrow() throws IOException {
-        Source src = new Source("missing", Source.SourceType.RESOURCE);
-        Config4JSetting.THROW_ERROR_ON_SOURCE_MISSING.set(false);
-        try {
-            Assert.assertNull(new SimpleConfigurationReader().load(src));
-        } finally {
-            Config4JSetting.THROW_ERROR_ON_SOURCE_MISSING.set(true);
-        }
-    }
 }

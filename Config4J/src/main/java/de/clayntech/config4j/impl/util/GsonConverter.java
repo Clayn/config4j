@@ -1,6 +1,7 @@
 package de.clayntech.config4j.impl.util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * A {@link JsonConverter} implementation using the Gson library.
@@ -16,10 +17,10 @@ public class GsonConverter implements JsonConverter {
     }
 
     public GsonConverter() {
-        this(new Gson());
+        this(new GsonBuilder().setPrettyPrinting().create());
     }
 
-    public static final JsonConverter newInstance() {
+    public static JsonConverter newInstance() {
         return new GsonConverter();
     }
 

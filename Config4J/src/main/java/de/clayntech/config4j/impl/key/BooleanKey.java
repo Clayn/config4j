@@ -14,6 +14,11 @@ public class BooleanKey extends Key<Boolean> {
     }
 
     @Override
+    protected Class<Boolean> getType() {
+        return Boolean.TYPE;
+    }
+
+    @Override
     public Boolean fromString(String str) {
         return Boolean.parseBoolean(str);
     }

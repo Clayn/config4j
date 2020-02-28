@@ -84,10 +84,40 @@ public abstract class Key<T> implements Converter<T, String> {
         return key;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Key)) return false;
+        Key<?> key1 = (Key<?>) o;
+        return getType().equals(key1.getType()) && key.equals(key1.key);
+    }
+
+    protected abstract Class<T> getType();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, getType());
+    }
+
     private static final class BasicKey extends Key<String> {
 
         public BasicKey(String key) {
             super(key);
+        }
+
+        @Override
+        protected Class<String> getType() {
+            return String.class;
         }
 
         @Override
@@ -99,28 +129,5 @@ public abstract class Key<T> implements Converter<T, String> {
         public String fromString(String src) {
             return src;
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Key)) return false;
-        Key<?> key1 = (Key<?>) o;
-        return key.equals(key1.key);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(key);
     }
 }

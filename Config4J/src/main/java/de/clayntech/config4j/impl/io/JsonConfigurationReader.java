@@ -35,6 +35,8 @@ public class JsonConfigurationReader extends AbstractJsonConverterUser implement
             }
         }
         String json = jsonBuilder.toString();
-        return getConverter().fromJson(json, SimpleProfiledConfiguration.class);
+        ProfiledConfiguration conf = getConverter().fromJson(json, SimpleProfiledConfiguration.class);
+        System.out.println("Value for 'Key' at reading: " + conf.get("Key"));
+        return conf;
     }
 }

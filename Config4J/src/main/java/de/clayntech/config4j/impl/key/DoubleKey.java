@@ -13,6 +13,12 @@ public class DoubleKey extends Key<Double> {
     }
 
     @Override
+    protected Class<Double> getType() {
+        return Double.TYPE;
+    }
+
+
+    @Override
     public Double fromString(String str) {
         return Double.parseDouble(str);
     }

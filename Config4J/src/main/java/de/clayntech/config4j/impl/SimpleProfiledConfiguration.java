@@ -8,17 +8,17 @@ import java.util.*;
 
 public class SimpleProfiledConfiguration extends ConfigurationBase implements ProfiledConfiguration {
     private final String name;
-    private final ProfiledConfiguration parent;
-    private final Map<String, ProfiledConfiguration> profiles = new HashMap<>();
+    private final transient SimpleProfiledConfiguration parent;
+    private final Map<String, SimpleProfiledConfiguration> profiles = new HashMap<>();
     private final Properties properties = new Properties();
 
 
-    SimpleProfiledConfiguration(String name, ProfiledConfiguration parent) {
+    SimpleProfiledConfiguration(String name, SimpleProfiledConfiguration parent) {
         this.name = name;
         this.parent = parent;
     }
 
-    Map<String, ProfiledConfiguration> getProfiles0() {
+    Map<String, SimpleProfiledConfiguration> getProfiles0() {
         return profiles;
     }
 
@@ -104,7 +104,7 @@ public class SimpleProfiledConfiguration extends ConfigurationBase implements Pr
         Objects.requireNonNull(val);
         Objects.requireNonNull(key);
         String old = properties.getProperty(key);
-        properties.setProperty(key, val);
+        properties.put(key, val);
         boolean fire = false;
         if (!val.equals(old)) {
             fire = true;

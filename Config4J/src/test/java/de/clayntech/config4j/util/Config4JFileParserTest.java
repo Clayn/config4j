@@ -18,5 +18,13 @@ public class Config4JFileParserTest {
         Assert.assertEquals("value", conf.get("key"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testLoadConfigurationNoHeader() throws IOException {
+        Config4JFileParser.loadConfiguration(getClass().getResourceAsStream("/de/clayntech/config4j/util/test_noheader.c4j"));
+    }
 
+    @Test(expected = RuntimeException.class)
+    public void testLoadConfigurationMissingFactory() throws IOException {
+        Config4JFileParser.loadConfiguration(getClass().getResourceAsStream("/de/clayntech/config4j/util/test_missingfactory.c4j"));
+    }
 }

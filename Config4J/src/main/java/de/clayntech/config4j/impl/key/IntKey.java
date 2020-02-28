@@ -13,6 +13,11 @@ public class IntKey extends Key<Integer> {
     }
 
     @Override
+    protected Class<Integer> getType() {
+        return Integer.TYPE;
+    }
+
+    @Override
     public Integer fromString(String str) {
         return Integer.parseInt(str);
     }

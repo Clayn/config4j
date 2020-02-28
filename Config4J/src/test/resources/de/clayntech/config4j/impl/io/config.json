@@ -1,0 +1,16 @@
+{
+  "name": "DEFAULT",
+  "profiles": {
+    "profile": {
+      "name": "profile",
+      "profiles": {},
+      "properties": {
+        "Key": "Val"
+      }
+    }
+  },
+  "properties": {
+    "Key2": "Val2",
+    "Key": "Val"
+  }
+}

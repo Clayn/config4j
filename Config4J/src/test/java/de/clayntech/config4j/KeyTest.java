@@ -8,7 +8,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class KeyTest {
@@ -17,10 +19,21 @@ public class KeyTest {
     private static final Map<Class<?>, Object> validToValues = new HashMap<>();
     private static final Map<Class<?>, Object> inValidToValues = new HashMap<>();
     private static final Map<Class<?>, String> inValidFromValues = new HashMap<>();
+    private static final List<Class<?>> keyClasses = new ArrayList<>();
+    private static final Map<Class<?>, Class<?>> matchClasses = new HashMap<>();
 
     static {
         initInvalidValues();
         initValidValues();
+        keyClasses.add(Boolean.class);
+        keyClasses.add(Integer.class);
+        keyClasses.add(Double.class);
+        keyClasses.add(File.class);
+        keyClasses.add(URL.class);
+        keyClasses.add(String.class);
+        matchClasses.put(Boolean.class, Boolean.TYPE);
+        matchClasses.put(Integer.class, Integer.TYPE);
+        matchClasses.put(Double.class, Double.TYPE);
     }
 
     private static void initValidValues() {
@@ -111,5 +124,29 @@ public class KeyTest {
         Assert.assertNull(key.fromString(""));
     }
 
+    @Test
+    public void testPrimitiveKey() {
+        for (Map.Entry<Class<?>, Class<?>> entry : matchClasses.entrySet()) {
+            Key<?> key1 = KeyFactory.createKey("Key", entry.getKey());
+            Key<?> key2 = KeyFactory.createKey("Key", entry.getValue());
+            Assert.assertEquals(key1, key2);
+            Assert.assertEquals(key1, key1);
+            Assert.assertNotEquals(key1, null);
+            Assert.assertEquals(key1.hashCode(), key2.hashCode());
+        }
+    }
+
+    @Test
+    public void testKeyNotMatching() {
+        for (int i = 0; i < keyClasses.size(); ++i) {
+            for (int j = 0; j < keyClasses.size(); ++j) {
+                if (i != j) {
+                    Key<?> key1 = KeyFactory.createKey("Key", keyClasses.get(i));
+                    Key<?> key2 = KeyFactory.createKey("Key", keyClasses.get(j));
+                    Assert.assertNotEquals(key1, key2);
+                }
+            }
+        }
+    }
 
 }

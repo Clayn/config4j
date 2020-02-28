@@ -25,7 +25,8 @@ public class JsonConfigurationWriter extends AbstractJsonConverterUser implement
             throw new NotStorableException();
         }
         if (config instanceof ProfiledConfiguration) {
-            out.write(getConverter().toJson(config).getBytes());
+            String json = getConverter().toJson(config);
+            out.write(json.getBytes());
             out.flush();
         } else {
             ProfiledConfiguration prof = new SimpleProfiledConfiguration();
