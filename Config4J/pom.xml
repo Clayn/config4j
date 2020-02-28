@@ -12,7 +12,7 @@
     </licenses>
     <groupId>de.clayntech</groupId>
     <artifactId>config4j</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <distributionManagement>
         <repository>
             <id>github</id>
@@ -75,7 +75,6 @@
                 <version>3.0.0</version>
             </plugin>
         </plugins>
-
     </build>
     <dependencies>
         <dependency>
