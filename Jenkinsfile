@@ -2,7 +2,7 @@ node {
     def mvnHome
     def jdk = tool name: 'JDK 1.8'
     env.JAVA_HOME = "${jdk}"
-    echo "Building ${GIT_BRANCH}"
+    echo "Building "+env.BRANCH_NAME
     stage('Preparation') {
         checkout scm
         mvnHome = tool 'Maven'
