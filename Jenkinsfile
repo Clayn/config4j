@@ -50,14 +50,13 @@ node {
         }
         stage('Deploy') {
                     if(env.BRANCH_NAME.startsWith("v")) {
-                        steps {
                             echo 'Deploying only because this commit is tagged...'
                             if (isUnix()) {
                                             sh "'${mvnHome}/bin/mvn' -DskipTests deploy -P github"
                                         } else {
                                             bat(/"${mvnHome}\bin\mvn" -DskipTests deploy -P github/)
                                         }
-                        }
+
                     }
                 }
     }
