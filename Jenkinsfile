@@ -2,6 +2,7 @@ node {
     def mvnHome
     def jdk = tool name: 'JDK 1.8'
     env.JAVA_HOME = "${jdk}"
+    echo "Building ${GIT_BRANCH}"
     stage('Preparation') {
         checkout scm
         mvnHome = tool 'Maven'
@@ -48,14 +49,15 @@ node {
             }
         }
         stage('Deploy') {
-                    when { tag "v*" }
-                    steps {
-                        echo 'Deploying only because this commit is tagged...'
-                        if (isUnix()) {
-                                        sh "'${mvnHome}/bin/mvn' -DskipTests deploy -P github"
-                                    } else {
-                                        bat(/"${mvnHome}\bin\mvn" -DskipTests deploy -P github/)
-                                    }
+                    if("${GIT_BRANCH}".startsWith("v")) {
+                        steps {
+                            echo 'Deploying only because this commit is tagged...'
+                            if (isUnix()) {
+                                            sh "'${mvnHome}/bin/mvn' -DskipTests deploy -P github"
+                                        } else {
+                                            bat(/"${mvnHome}\bin\mvn" -DskipTests deploy -P github/)
+                                        }
+                        }
                     }
                 }
     }
