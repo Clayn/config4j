@@ -20,7 +20,7 @@
                 <repository>
                     <id>github</id>
                     <name>Clayn</name>
-                    <url>https://maven.pkg.github.com/Clayn</url>
+                    <url>https://maven.pkg.github.com/Clayn/config4j</url>
                 </repository>
             </repositories>
         </profile>
