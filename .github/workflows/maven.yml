@@ -1,9 +1,6 @@
 name: Java CI
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   build:
@@ -18,8 +15,3 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file Config4J/pom.xml
-    - name: Deploy package
-      env:
-        GITHUB_USERNAME: x-access-token
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn -B --settings .github/settings.xml deploy --file Config4J/pom.xml
