@@ -47,5 +47,16 @@ node {
                 bat(/"${mvnHome}\bin\mvn" -DskipTests site/)
             }
         }
+        stage('Deploy') {
+                    when { tag "v*" }
+                    steps {
+                        echo 'Deploying only because this commit is tagged...'
+                        if (isUnix()) {
+                                        sh "'${mvnHome}/bin/mvn' -DskipTests deploy -P github"
+                                    } else {
+                                        bat(/"${mvnHome}\bin\mvn" -DskipTests deploy -P github/)
+                                    }
+                    }
+                }
     }
 }
