@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Config4J/Config4J.iml" filepath="$PROJECT_DIR$/Config4J/Config4J.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Config4J-Spring/Config4J-Spring.iml" filepath="$PROJECT_DIR$/Config4J-Spring/Config4J-Spring.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/config4j.iml" filepath="$PROJECT_DIR$/.idea/config4j.iml" />
     </modules>
   </component>

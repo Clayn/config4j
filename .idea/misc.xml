@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Config4J/pom.xml" />
+        <option value="$PROJECT_DIR$/Config4J-Spring/pom.xml" />
       </list>
     </option>
   </component>
