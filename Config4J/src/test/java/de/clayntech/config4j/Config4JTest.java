@@ -117,6 +117,7 @@ public class Config4JTest {
     @Test
     public void testInitDefaultConfiguration() throws IOException {
         Configuration config = new SimpleConfiguration();
+        config.set("Key", "Val");
         Config4JSetting.DEBUG_LOADED_DEFAULT_CONFIGURATION.set(true);
         Mockito.when(provider.loadConfiguration()).thenReturn(config);
         Config4J.initDefaultConfiguration();
@@ -126,6 +127,7 @@ public class Config4JTest {
     @Test
     public void testInitDefaultConfigurationNoLog() throws IOException {
         Configuration config = new SimpleConfiguration();
+        config.set("Key", "Val");
         Mockito.when(provider.loadConfiguration()).thenReturn(config);
         Config4J.initDefaultConfiguration();
         Assert.assertEquals("Val", Config4J.getConfiguration().get("Key"));

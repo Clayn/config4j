@@ -1,5 +1,6 @@
 package de.clayntech.config4j;
 
+import de.clayntech.config4j.impl.OSConfigurationProvider;
 import de.clayntech.config4j.impl.io.SimpleConfigurationFactory;
 import de.clayntech.config4j.io.ConfigurationFactory;
 
@@ -82,6 +83,10 @@ public interface ConfigurationProvider {
      */
     static ConfigurationProvider newFileBasedProvider(File configFile) {
         return ConfigurationProvider.newFileBasedProvider(configFile, new SimpleConfigurationFactory());
+    }
+
+    static ConfigurationProvider newOSDependedFileProvider(String appName, String fileName) {
+        return new OSConfigurationProvider(appName, fileName);
     }
 
     static ConfigurationProvider newFileBasedProvider(String fileName) {

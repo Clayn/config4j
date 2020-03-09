@@ -86,7 +86,7 @@ public final class Config4J {
             return;
         }
         Configuration used = getConfiguration();
-        merge(used, def);
+        merge(def, used);
         saveConfiguration();
     }
 
