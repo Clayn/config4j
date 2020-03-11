@@ -75,9 +75,8 @@ public interface Configuration {
     }
 
     /**
-     * Returns the value for the given key. If no such value was found, returns {@code null}.
-     * <br>
-     * Defaults to: {@code return get(key,null);}
+     * Returns the value for the given key. If no such value is found and the key was a
+     * {@link ValuedKey} the default value gets returned otherwise {@code null};
      *
      * @param <T> the type of the value to get
      * @param key the key to get the value for. Must not be {@code null}
@@ -88,7 +87,11 @@ public interface Configuration {
      */
     default <T> T get(Key<T> key) {
         Objects.requireNonNull(key);
-        return get(key, null);
+        T def = null;
+        if (key instanceof ValuedKey) {
+            def = ((ValuedKey<T>) key).getDefaultValue();
+        }
+        return get(key, def);
     }
 
     /**

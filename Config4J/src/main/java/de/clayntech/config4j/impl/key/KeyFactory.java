@@ -1,6 +1,7 @@
 package de.clayntech.config4j.impl.key;
 
 import de.clayntech.config4j.Key;
+import de.clayntech.config4j.ValuedKey;
 
 import java.io.File;
 import java.net.URL;
@@ -38,5 +39,20 @@ public class KeyFactory {
             throw new IllegalArgumentException("No registered key class found for type '" + type.getName() + "'");
         }
         return (Key<T>) KEY_CLASSES.get(type).apply(key);
+    }
+
+    /**
+     * Creates a new valued key for the given identification, type, and default value. The possible types are the types which have
+     * implementations directly in the library e.g. {@link IntKey} for {@link int} or {@link Integer}. The default
+     * value will be used by {@link de.clayntech.config4j.Configuration#get(Key)} instead of {@code null}.
+     *
+     * @param key          the identification for the key
+     * @param type         the type the key should be for
+     * @param defaultValue the default value for the key
+     * @param <T>          the type the should be for
+     * @return a new key that can access values stored with the given key and parse them to the required type.
+     */
+    public static <T> ValuedKey<T> createKey(String key, Class<T> type, T defaultValue) {
+        return new ValuedKey<>(createKey(key, type), defaultValue);
     }
 }

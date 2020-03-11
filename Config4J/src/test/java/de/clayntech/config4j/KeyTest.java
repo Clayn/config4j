@@ -137,6 +137,15 @@ public class KeyTest {
     }
 
     @Test
+    public void testValuedKey() {
+        Configuration conf = new SimpleConfiguration();
+        ValuedKey<String> key = KeyFactory.createKey("key", String.class, "Hello World");
+        Assert.assertEquals("Hello World", conf.get(key));
+        conf.set(key, "Val");
+        Assert.assertEquals("Val", conf.get(key));
+    }
+
+    @Test
     public void testKeyNotMatching() {
         for (int i = 0; i < keyClasses.size(); ++i) {
             for (int j = 0; j < keyClasses.size(); ++j) {
