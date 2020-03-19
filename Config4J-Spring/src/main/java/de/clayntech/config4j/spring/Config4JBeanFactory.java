@@ -27,7 +27,7 @@ public class Config4JBeanFactory extends AbstractFactoryBean<Configuration> {
     public Environment environment;
     @Value("${" + CONFIG_FILE_PATH + "}")
     private String configFilePath;
-    @Value(PROVIDER)
+    @Value("${" + PROVIDER + "}")
     private String providerClass;
 
     public Config4JBeanFactory() {
@@ -73,11 +73,11 @@ public class Config4JBeanFactory extends AbstractFactoryBean<Configuration> {
                 }
                 LOG.debug("Created provider of class: {}", provClass);
             } catch (Exception ex) {
-                LOG.warn("Failed to load provider {}", providerClass, ex);
+                LOG.warn("Failed to load provider '{}'", providerClass, ex);
             }
         }
         if (provider == null) {
-            LOG.debug("Creating default provider for file '{}'", path);
+            LOG.info("Creating default provider for file '{}'", path.getAbsolutePath());
             provider = ConfigurationProvider.newFileBasedProvider(path);
         }
         Config4J.setProvider(provider);
